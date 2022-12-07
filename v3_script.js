@@ -44,7 +44,7 @@ function final_fun_two(event) {
     var container = d3.select('#viz3'),
         width = 600,
         height = 450,
-        margin = {top: 20, right: 10, bottom: 70, left: 50},
+        margin = {top: 20, right: 10, bottom: 150, left: 70},
         barPadding = .5,
         axisTicks = 15;
   
@@ -57,11 +57,11 @@ function final_fun_two(event) {
     
     function formatNumber(num) {
         if(num > 999 && num < 1000000){
-            return (num/1000).toFixed(1) + 'K'; // convert to K for number from > 1000 < 1 million 
+            return (num/1000).toFixed(1); //+ 'K'; // convert to K for number from > 1000 < 1 million 
         }else if(num > 1000000){
-            return (num/1000000).toFixed(1) + 'M'; // convert to M for number from > 1 million 
+            return (num/1000000).toFixed(1); //+ 'M'; // convert to M for number from > 1 million 
         }else if(num > 1000000000){
-            return (num/1000000000).toFixed(1) + 'B'; // convert to M for number from > 1 million 
+            return (num/1000000000).toFixed(1); //+ 'B'; // convert to M for number from > 1 million 
         }else if(num < 900){
             return num; // if value < 1000, nothing to do
         }
@@ -83,7 +83,7 @@ function final_fun_two(event) {
                    .domain([0, d3.max(yaxis_data)])
                    .range([height - margin.top - margin.bottom, 0]);
     
-    var xAxis = d3.axisBottom(xScale0);
+    var xAxis = d3.axisBottom(xScale0)
   
     var yAxis = d3.axisLeft()
                   .scale(yScale)
@@ -187,12 +187,29 @@ function final_fun_two(event) {
           .style("text-anchor", "end")
           .attr("dx", "-1em")
           .attr("dy", "-.6em")
-          .attr("transform", "rotate(-90)" )
+          .attr("transform", "rotate(-90)")
+   
+    svg.append("text")
+       .attr("text-anchor", "end")
+       .attr("x", 500)
+       .attr("y", 370)
+       .attr("fill", "#eae6eb")
+       .text("Company name");
+
+    svg.append("text")
+       .attr("text-anchor", "end")
+       .attr("transform", "rotate(-90)")
+       .attr("y", -margin.left+20)
+       .attr("x", -margin.top+20)
+       .attr("fill", "#eae6eb")
+       .text("Record Count in M");
+   
+      
     
     // Add the Y Axis
     svg.append("g")
        .attr("class", "y axis")
-       .call(yAxis);
+       .call(yAxis)
 
        var c_dict = {email: 0, SSN: 0, CreditCard: 0, PersonalDetails: 0, FullDetails: 0}
 

@@ -107,7 +107,7 @@ function final_fun_one(event) {
         })
 
         for (let index = 0; index < sorted_array.length; index++) {
-            sorted_array[index].radius = parseInt(sorted_array[index].radius) / 5000000;
+            sorted_array[index].radius = parseInt(sorted_array[index].radius) / 10000000;
 
         }
 
