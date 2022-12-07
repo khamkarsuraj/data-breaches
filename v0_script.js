@@ -24,6 +24,50 @@ svg.selectAll("mylabels")
         .text(function(d){ return d})
         .attr("text-anchor", "left")
         .style("alignment-baseline", "middle")
+        .on('mouseover', function(d) {
+            let t = d3.selectAll(".bar.field1")
+                      .transition()
+                      .duration('50')
+                      .attr('opacity', '.2');
+            
+            let c =  d3.selectAll("circle")
+                       .transition()
+                       .duration('50')
+                       .attr('opacity', '.2');
+
+            for (let index = 0; index < t._groups[0].length; index++) {
+                const element = t._groups[0][index].__data__.category;
+                const f = t._groups[0][index]
+                if (element === d) {
+                    d3.select(f)
+                      .transition()
+                      .duration('50')
+                      .attr('opacity', '1')
+                }
+            }
+
+            for (let index = 0; index < c._groups[0].length; index++) {
+                const element = c._groups[0][index].__data__.category;
+                const f = c._groups[0][index]
+                if (element === d) {
+                    d3.select(f)
+                      .transition()
+                      .duration('50')
+                      .attr('opacity', '1')
+                }
+            }
+        })
+        .on('mouseout', function(d) {
+          d3.selectAll(".bar.field1")
+            .transition()
+            .duration('50')
+            .attr('opacity', '1')
+        
+          d3.selectAll("circle")
+            .transition()
+            .duration('50')
+            .attr('opacity', '1')
+        })
 
 var slider = document.querySelector('#slider');
 var result = document.querySelector('#result');
@@ -146,7 +190,6 @@ function final_fun_one(event) {
                               .duration('50')
                               .attr('opacity', '.2')
             
-                    //console.log(t)
                     for (let index = 0; index < t._groups[0].length; index++) {
                         const element = t._groups[0][index].__data__.model_name;
                         const f = t._groups[0][index]
