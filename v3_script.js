@@ -42,7 +42,7 @@ function final_fun_two(event) {
                          .range(["#FFBF00", "#FF7F50", "#6495ED", "#008000", "#DE3163"]);
   
     var container = d3.select('#viz3'),
-        width = 600,
+        width = 700,
         height = 450,
         margin = {top: 20, right: 10, bottom: 150, left: 70},
         barPadding = .5,
@@ -153,7 +153,7 @@ function final_fun_two(event) {
       })
       .on('mousemove', function () {
         tooltip.style('top', d3.event.pageY + 10 + 'px')
-               .style('left', d3.event.pageX - 280 + 'px');
+               .style('left', d3.event.pageX + 10 + 'px');
       })
       .on('mouseout', function(d) {
         d3.selectAll(".bar.field1")
@@ -242,10 +242,9 @@ function final_fun_two(event) {
 
        var text = "";
    
-       var width = 260;
-       var height = 260;
-       var thickness = 40;
-       var duration = 750;
+       var width = 360;
+       var height = 360;
+       var thickness = 60;
    
        var radius = Math.min(width, height) / 2;
        var color = d3.scaleOrdinal()
@@ -289,7 +288,7 @@ function final_fun_two(event) {
                       
                           g.append("text")
                             .attr("class", "value-text")
-                            .text(`${d.data.value}`)
+                            .text(`${d.data.value}`+` Companies Total`)
                             .attr('text-anchor', 'middle')
                             .attr('dy', '.6em');
 
