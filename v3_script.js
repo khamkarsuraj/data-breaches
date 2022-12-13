@@ -1,19 +1,18 @@
-var slider = document.querySelector('#slider');
+/*var slider = document.querySelector('#slider');
 var result = document.querySelector('#result');
-var temp = document.getElementById("result");
+var temp = document.getElementById("result");*/
 
-window.addEventListener('load', function(event) {
-  event.target.value = String(temp.value);
+/*window.addEventListener('load', function(event) {
+  event.target.value = String(2018);
   final_fun_two(event);
-});
+});*/
 
-slider.addEventListener('input', function(event) {
+/*slider.addEventListener('input', function(event) {
   final_fun_two(event);
-});
+});*/
 
-function final_fun_two(event) {
-  var sliderValue = event.target.value;
-  result.value = sliderValue;
+//function final_fun_two(event) {
+  var sliderValue = String(2018);
 
   d3.csv("node-data4.csv").then(function (data) {
     var svg = d3.select("#viz3");
@@ -23,7 +22,8 @@ function final_fun_two(event) {
     svg1.selectAll("*").remove();
 
     var dataFilter = data.filter(function(el) {
-      return el.year === result.value
+      console.log("from", sliderValue)
+      return el.year === sliderValue
     })
 
     var models = dataFilter.map(function (d) {
@@ -42,7 +42,7 @@ function final_fun_two(event) {
                          .range(["#FFBF00", "#FF7F50", "#6495ED", "#008000", "#DE3163"]);
   
     var container = d3.select('#viz3'),
-        width = 700,
+        width = 900,
         height = 450,
         margin = {top: 20, right: 10, bottom: 150, left: 70},
         barPadding = .5,
@@ -55,16 +55,18 @@ function final_fun_two(event) {
        .append("g")
        .attr("transform", `translate(${margin.left},${margin.top})`)
     
-    function formatNumber(num) {
-        if(num > 999 && num < 1000000){
-            return (num/1000).toFixed(1); //+ 'K'; // convert to K for number from > 1000 < 1 million 
-        }else if(num > 1000000){
-            return (num/1000000).toFixed(1); //+ 'M'; // convert to M for number from > 1 million 
-        }else if(num > 1000000000){
-            return (num/1000000000).toFixed(1); //+ 'B'; // convert to M for number from > 1 million 
-        }else if(num < 900){
-            return num; // if value < 1000, nothing to do
-        }
+    function formatNumber(num, digits) {
+      const lookup = [
+        { value: 1, symbol: "" },
+        { value: 1e3, symbol: " K" },
+        { value: 1e6, symbol: " M" },
+        { value: 1e9, symbol: " B" }
+      ];
+      const rx = /\.0+$|(\.[0-9]*[1-9])0+$/;
+      var item = lookup.slice().reverse().find(function(item) {
+        return num >= item.value;
+      });
+      return item ? (num / item.value).toFixed(digits).replace(rx, "$1") + item.symbol : "0";
     }
     
     var yaxis_data = []
@@ -89,7 +91,7 @@ function final_fun_two(event) {
                   .scale(yScale)
                   .ticks(axisTicks)
                   .tickFormat(function(d) {
-                      var s = formatNumber(d);
+                      var s = formatNumber(d, 1);
                       return s;
                   });
     
@@ -122,7 +124,7 @@ function final_fun_two(event) {
       .enter()
       .append("rect")
       .attr("class", "bar field1")
-    .style("fill","#69b3a2")
+      .style("fill","#69b3a2")
       .attr("x", d => xScale1('field1'))
       .attr("y", d => yScale(d.field1))
       .attr("width", xScale1.bandwidth())
@@ -191,8 +193,8 @@ function final_fun_two(event) {
    
     svg.append("text")
        .attr("text-anchor", "end")
-       .attr("x", 500)
-       .attr("y", 370)
+       .attr("x", 700)
+       .attr("y", 360)
        .attr("fill", "#eae6eb")
        .text("Company name");
 
@@ -202,7 +204,7 @@ function final_fun_two(event) {
        .attr("y", -margin.left+20)
        .attr("x", -margin.top+20)
        .attr("fill", "#eae6eb")
-       .text("Record Count in M");
+       .text("Record Lost Count");
    
       
     
@@ -241,7 +243,6 @@ function final_fun_two(event) {
                       ]
 
        var text = "";
-   
        var width = 360;
        var height = 360;
        var thickness = 60;
@@ -251,7 +252,6 @@ function final_fun_two(event) {
                      .domain(["email", "SSN", "Credit Card","Personal Details", "Full Details"])
                      .range(["#FFBF00", "#FF7F50", "#6495ED", "#008000", "#DE3163"]);
 
-   
        var svg = d3.select("#viz4")
                    .append('svg')
                    .attr('class', 'pie')
@@ -341,4 +341,4 @@ function final_fun_two(event) {
        .attr('dy', '.35em')
        .text(text);
   });
-}
+//}
