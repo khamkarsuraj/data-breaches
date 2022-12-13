@@ -288,7 +288,7 @@ var temp = document.getElementById("result");*/
                       
                           g.append("text")
                             .attr("class", "value-text")
-                            .text(`${d.data.value}`+` Companies Total`)
+                            .text(`${d.data.value}`)
                             .attr('text-anchor', 'middle')
                             .attr('dy', '.6em');
 
