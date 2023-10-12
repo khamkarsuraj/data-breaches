@@ -18,7 +18,6 @@ Hint: Just uncomment some code and adjust few things
 This is Data Visualization project.
 Title - Data Breaches in Top Tech Companies
 
-Developers - Suraj Khamkar | skhamka@clemson.edu
-             Sravani Pati  | spati@clemson.edu
+Developer - Suraj Khamkar | skhamka@clemson.edu
 
 Instructor - Federico Iuricich
